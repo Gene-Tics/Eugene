@@ -1,71 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eugene Albert B. Navarro | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <nav>
-      <h1>Your Name</h1>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="hero">
-      <h2>Hello, I'm <span>Your Name</span></h2>
-      <p>A passionate [Your Role] based in [Location]</p>
-    </div>
-  </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <title>My porfolio</title>
+    </head>
+    <body>
+        <main>
+          <aside>
+            <ul class="Links">
+              <li onclick="Navigate(0)" class="activeLink"><i class="fa-solid fa-house"></i>
+                <p>Home</p>
+              </li>
+              <li onclick="Navigate(1)"><i class="fa-solid fa-user" ></i>
+                <p>About Me</p>
+              </li>
+              <li onclick="Navigate(2)"><i class="fa-solid fa-list"></i>
+                <p>Services</p>
+              </li>
+              <li onclick="Navigate(3)"><i class="fa-solid fa-images"></i>
+                <p>Gallery</p>
+              </li>
+              <li onclick="Navigate(4)"><i class="fa-solid fa-comments"></i>
+                <p>Contact Me</p>
+              </li>
+            </ul>
+          </aside>
+            <div class="swiper mySwiper">
+                <div class="SlideContainer swiper-wrapper">
+                    <div class="swiper-slide home-slide">
+                        <div class="HomeContent">
+                            <h1>Hi! I'm <span class="stylized-name">Eugene</span>,</h1>
+                            <h2>A <span class="proffesions">Computer Science Student</span></h2>
+                            <div class="buttonGroup" ><button class="hireMe-btn">Hire Me</button><button class="contactMe-btn">Contact Me</button></div>
+                        </div>
+                        <div class="SideImg">
+                            <div class="top-right-corner">
+                                <hr class="hr1">
+                                <hr class="hr2">
+                            </div>
+                            <img src="images/profile pic.jpeg" alt="">
+                            <div class="bottom-left-corner">
+                                <hr class="hr1">
+                                <hr class="hr2">
+                            </div>
+                        </div>
+                        <p class="slide-help">Scroll for next slide <i class="fa-solid fa-chevron-right fa-shake"></i>
+                        </p>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="about-us">
+                        <h1 class="heading">About Me</h1>
+                        <p class="aboutme-deatils">
+                            Hi, I'm Eugene Albert B. Navarro, a passionate and curious 3rd year Computer Science student driven by a love for technology, creativity, and meaningful innovation. I thrive on understanding how things work—whether it's software systems, web applications, or the logic behind AI—and I enjoy building solutions that make everyday life more efficient and inspiring.
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I am a dedicated and detail-oriented [Your Profession], experienced in [field or technology]. I love building clean, user-friendly web applications and always strive to improve my skills and learn new technologies.</p>
-  </section>
+                            I believe in blending logic with aesthetics, creating not only functional but also beautiful and intuitive digital experiences. Whether I’m writing code, brainstorming features, or experimenting with user interfaces, I strive to learn continuously and grow in both depth and versatility as a developer.
+                            
+                            In my spare time, I enjoy exploring minimalist and lofi design trends, watching documentaries about tech and science, and working on personal coding projects that challenge me to think differentl
+                        </p>
+                        <div class="about-me-divison">
+                            <div class="about-me-table">
+                                <li><span>Experience:</span> 3 years</li>
+                                <li><span>Country:</span> Philippines</li>
+                                <li><span>Avability:</span> 24/7 </li>
+                                <li><span>Hobby:</span>Video games, Programmer</li>
+                                <li><span>Age</span>:20</li>
+                                <li><span>Phone</span>:09085862092</li>
+                                <li><span>Degree</span>:Still Studying</li>
+                                <div class="buttonGroup"><button class="hireMe-btn">Hire Me</button><button class="contactMe-btn">Contact Me</button></div>
+                            </div>
+    
+                            <div class="skill-bar">
+                                <li>
+                                    <p>HTML</p>
+                                    <div class="bar">
+                                        <div class="active-bar" style="width:99%"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>CSS</p>
+                                    <div class="bar">
+                                        <div class="active-bar" style="width:80%"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>JavaScript</p>
+                                    <div class="bar">
+                                        <div class="active-bar" style="width:85%"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>Datamining</p>
+                                    <div class="bar">
+                                        <div class="active-bar" style="width:50%"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <p>Python</p>
+                                    <div class="bar">
+                                        <div class="active-bar" style="width:60%"></div>
+                                    </div>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="swiper-slide services">
+                        <h1 class="heading">Services</h1>
+                        <div class="service">
+                            <div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+                            <h2>Web Design</h2>
+                            <p>I create clean, responsive, and visually appealing website designs that focus on user experience and clarity. My design approach blends modern aesthetics with simplicity to ensure every site feels natural, intuitive, and purpose-driven</p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon"><i class="fa-solid fa-globe"></i></div>
+                            <h2>Web Development</h2>
+                            <p>From static landing pages to interactive web applications, I build fast, functional, and scalable websites using HTML, CSS, JavaScript, and PHP. I write organized, maintainable code and enjoy bringing designs to life through development.</p>
+                        </div>
+                        <div class="service">
+                            <div class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                            <h2>Troubleshoot</h2>
+                            <p>Technical issues don’t scare me I’m good at breaking down problems, diagnosing bugs, and finding effective solutions. Whether it’s fixing broken code or optimizing performance, I bring a calm, methodical mindset to every challenge.</p>
+                        </div>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul class="skills-list">
-      <li>HTML5</li>
-      <li>CSS3</li>
-      <li>JavaScript</li>
-      <li>React</li>
-      <li>Python</li>
-      <li>Git & GitHub</li>
-    </ul>
-  </section>
+                    </div>
+                    <div class="swiper-slide gallery">
+                        <h1 class="heading">Gallery</h1>
+                        <div class="project"><img src="images/meow1.jpg" alt=""></div>
+                        <div class="project"><img src="images/meow2.jpg" alt=""></div>
+                        <div class="project"><img src="images/meow3.jpg" alt=""></div>
+                        <div class="project"><img src="images/meow4.jpg" alt=""></div>
+                        <div class="project"><img src="images/meow5.jpg" alt=""></div>
+                        <div class="project"><img src="images/meow6.jpg" alt=""></div>
+                    </div>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Project Title</h3>
-      <p>Short description of the project, its features, and technologies used.</p>
-      <a href="#" target="_blank">View Project</a>
-    </div>
-    <div class="project">
-      <h3>Another Project</h3>
-      <p>Another brief project summary. You can link it to GitHub or a live demo.</p>
-      <a href="#" target="_blank">View Project</a>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p>Feel free to reach out via email or social media!</p>
-    <ul>
-      <li>Email: <a href="eugenealbert6@gmail.com">youremail@example.com</a></li>
-      <li>GitHub: <a href="https://github.com/Gene-Tics" target="_blank">yourusername</a></li>
-      <li>LinkedIn: <a href="https://linkedin.com/in/yourusername" target="_blank">yourusername</a></li>
-    </ul>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Your Name. All rights reserved.</p>
-  </footer>
-</body>
+                    <div class="swiper-slide contactMe">
+                        <h1 class="heading">Contact Me</h1>
+                        <div class="contactinfo"><i class="fa-solid fa-phone"></i>
+                            <h3>Mobile No</h3>
+                            <p>Smart:09085862092</p>
+                        </div>
+                        <div class="contactinfo"><i class="fa-solid fa-location-dot"></i>
+                            <h3>Location</h3>
+                            <p>Philippines</p>
+                        </div>
+                        <div class="contactinfo"><i class="fa-regular fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p>eugenealbert6@gmail.com</p>
+                        </div>
+                        <div class="contactinfo"><i class="fa-solid fa-globe"></i>
+                            <h3>Website</h3>
+                            <p>Under matinance</p>
+                        </div>
+                        <form action="https://formspree.io/f/xovdelbo" method="POST">
+                            <h2>Send Me A Message 
+                              <div class="SocialLinks">
+                                <i class="fa-brands fa-codepen"></i>
+                                <i class="fa-brands fa-instagram"></i>
+                                <i class="fa-brands fa-twitter"></i>
+                                <i class="fa-brands fa-facebook"></i>
+                              </div>
+                            </h2>
+                            <input type="text" name="name" placeholder="Your Name" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
+                            <textarea name="message" rows="10" placeholder="Type your message here..." required></textarea>
+                            <button type="submit" class="primary">Send</button>
+                          </form>
+                          
+                        
+                        <footer>
+                            <li>Copyright © 2025 Eubert Navarro</li>
+                        </footer>
+                    </div>
+                </div>
+        </main>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+        <script src="portfolio.js"></script>
+    </body>
 </html>
