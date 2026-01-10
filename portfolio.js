@@ -1,22 +1,323 @@
-var swiper = new Swiper(".swiper", {
-    effect: "cube",
-    allowTouchMove: false,
-    grabCursor: false,
-    cubeEffect: {
-        shadow: true,
-        slideShadows: true,
-        shadowOffset: 20,
-        shadowScale: 0.94,
-    },
-    mousewheel: true
-});
-swiper.on('slideChange', function () {
-    for (let i of document.querySelectorAll(".Links li")) i.classList.remove("activeLink")
-    Array.from(document.querySelectorAll(".Links li"))[swiper.activeIndex].classList.add("activeLink")
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Iris — For You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1720;
+      --accent:#ff6fa3;
+      --accent-2:#845ef7;
+      --muted:#cfd8e3;
+      --card-bg: rgba(255,255,255,0.02);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Segoe UI,Roboto,Arial;-webkit-font-smoothing:antialiased;}
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% 20%, rgba(132,94,247,0.12), transparent 8%),
+        radial-gradient(1000px 400px at 90% 80%, rgba(255,111,163,0.08), transparent 10%),
+        var(--bg);
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
 
-});
-function Navigate(indx) {
-    for (let i of document.querySelectorAll(".Links li")) i.classList.remove("activeLink")
-    Array.from(document.querySelectorAll(".Links li"))[indx].classList.add("activeLink")
-    swiper.slideTo(indx, 1000, true)
-}
+    .card{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, var(--card-bg), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      border-radius:18px;
+      padding:36px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+      align-items:center;
+      overflow:hidden;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    /* message column */
+    .message { padding-right:6px; }
+    .eyebrow{ color:var(--accent); font-weight:600; letter-spacing:0.6px; margin-bottom:10px;
+      display:inline-block; background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    h1{ color:#fff; font-size:2.1rem; margin:0 0 10px 0; line-height:1.05; font-weight:800; }
+    h1 .name{ background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    p.lead{ color:#dbe7f6; font-size:1rem; margin-top:8px; margin-bottom:18px; line-height:1.6; }
+
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+    .badge{ background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:999px; color:var(--muted); font-weight:600; font-size:0.95rem; }
+
+    .cta{ display:flex; gap:12px; align-items:center; margin-top:10px; }
+    .btn, .primary{ padding:12px 18px; border-radius:12px; border:1px solid transparent; cursor:pointer; font-weight:700; font-size:0.98rem; transition:transform .18s ease, box-shadow .18s ease; }
+    .btn-pink{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071027; box-shadow:0 8px 30px rgba(132,94,247,0.12); border:1px solid rgba(255,255,255,0.04); }
+    .btn-ghost{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04); }
+    .btn:active{ transform:translateY(1px); }
+
+    .signature{ margin-top:14px; font-size:0.9rem; color:#98a6c6; }
+
+    /* portrait column */
+    .portrait{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px; padding:18px; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .heart{ width:120px; height:120px; filter:drop-shadow(0 8px 24px rgba(255,111,163,0.12)); animation:beat 1.05s infinite ease-in-out; }
+    @keyframes beat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .note{ text-align:center; color:#e8ecf8; font-weight:600; }
+    .small{ font-size:0.9rem; color:#bfcbe0; }
+
+    /* SocialLinks inside h2 (if used) */
+    .SocialLinks { display:flex; gap:12px; margin-top:8px; }
+    .SocialLinks i { color:var(--accent); font-size:1.4rem; }
+
+    /* Responsive: mobile-first adjustments */
+    @media (max-width: 880px){
+      .card { grid-template-columns: 1fr; padding:20px; gap:18px; }
+      .portrait { order:-1; width:100%; padding:16px; border-radius:12px; }
+      .heart { width:88px; height:88px; }
+      h1 { font-size:1.8rem; }
+      p.lead { font-size:0.98rem; }
+      .cta { flex-direction:column; gap:10px; width:100%; }
+      .btn-pink, .btn-ghost { width:100%; padding:14px; border-radius:12px; font-size:1rem; }
+      .meta { justify-content:flex-start; }
+      .message { padding-right:0; }
+    }
+
+    /* Extra small phones - improve touch targets & spacing */
+    @media (max-width:480px){
+      body { padding:16px; }
+      .card { padding:16px; border-radius:14px; }
+      .eyebrow { font-size:0.86rem; }
+      h1 { font-size:1.6rem; }
+      p.lead { font-size:0.98rem; }
+      .heart { width:72px; height:72px; }
+      .signature { font-size:0.88rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" role="main" aria-label="A romantic note for Iris">
+      <div class="message">
+        <div class="eyebrow">For Iris</div>
+        <h1>My dearest <span class="name">Iris</span>,</h1>
+        <p class="lead">
+          When I wake and think of you, the world softens — colors become kinder and every small ordinary thing feels touched by light. You are the quiet warmth that makes my heart restless in the best way. With you, simple moments become stories I want to keep forever.
+        </p>
+
+        <div class="meta" aria-hidden="true">
+          <div class="badge">Your laugh — my favorite song</div>
+          <div class="badge">Your smile — my morning sun</div>
+        </div>
+
+        <p class="small">
+          If I had a thousand words, they'd all come back to your name. If I had a thousand days, I'd spend each of them proving how special you are.
+        </p>
+
+        <div class="cta" role="group" aria-label="Actions">
+          <button class="btn btn-pink" aria-label="Send this message to Iris" onclick="alert('Iris, this message was sent with love 🌸')">Send this to Iris</button>
+          <button class="btn btn-ghost" aria-label="Toggle mood" onclick="document.querySelector('.card').classList.toggle('soft')">Toggle Mood</button>
+        </div>
+
+        <div class="signature">— With all my heart</div>
+      </div>
+
+      <aside class="portrait" aria-hidden="false">
+        <svg class="heart" viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#ff6fa3"/>
+              <stop offset="1" stop-color="#845ef7"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#g)" d="M23.6 0c-2.3 0-4.3 1.1-5.6 2.8C16.7 1.1 14.7 0 12.4 0 7.7 0 4 3.6 4 8.3c0 9.1 14 16.7 14 16.7S32 17.4 32 8.3C32 3.6 28.3 0 23.6 0z"/>
+        </svg>
+        <div class="note">I think of you. I miss you. I choose you.</div>
+        <div class="small">Made with warmth — just for Iris</div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    // small enhancement: keyboard shortcut (S) to trigger send
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 's') {
+        const btn = document.querySelector('.btn-pink');
+        if (btn) btn.click();
+      }
+    });
+  </script>
+</body>
+</html>
+```// filepath: c:\Users\JJ Belandres\Downloads\iris.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Iris — For You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1720;
+      --accent:#ff6fa3;
+      --accent-2:#845ef7;
+      --muted:#cfd8e3;
+      --card-bg: rgba(255,255,255,0.02);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Segoe UI,Roboto,Arial;-webkit-font-smoothing:antialiased;}
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% 20%, rgba(132,94,247,0.12), transparent 8%),
+        radial-gradient(1000px 400px at 90% 80%, rgba(255,111,163,0.08), transparent 10%),
+        var(--bg);
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, var(--card-bg), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      border-radius:18px;
+      padding:36px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+      align-items:center;
+      overflow:hidden;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    /* message column */
+    .message { padding-right:6px; }
+    .eyebrow{ color:var(--accent); font-weight:600; letter-spacing:0.6px; margin-bottom:10px;
+      display:inline-block; background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    h1{ color:#fff; font-size:2.1rem; margin:0 0 10px 0; line-height:1.05; font-weight:800; }
+    h1 .name{ background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    p.lead{ color:#dbe7f6; font-size:1rem; margin-top:8px; margin-bottom:18px; line-height:1.6; }
+
+    .meta{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+    .badge{ background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:999px; color:var(--muted); font-weight:600; font-size:0.95rem; }
+
+    .cta{ display:flex; gap:12px; align-items:center; margin-top:10px; }
+    .btn, .primary{ padding:12px 18px; border-radius:12px; border:1px solid transparent; cursor:pointer; font-weight:700; font-size:0.98rem; transition:transform .18s ease, box-shadow .18s ease; }
+    .btn-pink{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#071027; box-shadow:0 8px 30px rgba(132,94,247,0.12); border:1px solid rgba(255,255,255,0.04); }
+    .btn-ghost{ background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.04); }
+    .btn:active{ transform:translateY(1px); }
+
+    .signature{ margin-top:14px; font-size:0.9rem; color:#98a6c6; }
+
+    /* portrait column */
+    .portrait{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px; padding:18px; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .heart{ width:120px; height:120px; filter:drop-shadow(0 8px 24px rgba(255,111,163,0.12)); animation:beat 1.05s infinite ease-in-out; }
+    @keyframes beat{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .note{ text-align:center; color:#e8ecf8; font-weight:600; }
+    .small{ font-size:0.9rem; color:#bfcbe0; }
+
+    /* SocialLinks inside h2 (if used) */
+    .SocialLinks { display:flex; gap:12px; margin-top:8px; }
+    .SocialLinks i { color:var(--accent); font-size:1.4rem; }
+
+    /* Responsive: mobile-first adjustments */
+    @media (max-width: 880px){
+      .card { grid-template-columns: 1fr; padding:20px; gap:18px; }
+      .portrait { order:-1; width:100%; padding:16px; border-radius:12px; }
+      .heart { width:88px; height:88px; }
+      h1 { font-size:1.8rem; }
+      p.lead { font-size:0.98rem; }
+      .cta { flex-direction:column; gap:10px; width:100%; }
+      .btn-pink, .btn-ghost { width:100%; padding:14px; border-radius:12px; font-size:1rem; }
+      .meta { justify-content:flex-start; }
+      .message { padding-right:0; }
+    }
+
+    /* Extra small phones - improve touch targets & spacing */
+    @media (max-width:480px){
+      body { padding:16px; }
+      .card { padding:16px; border-radius:14px; }
+      .eyebrow { font-size:0.86rem; }
+      h1 { font-size:1.6rem; }
+      p.lead { font-size:0.98rem; }
+      .heart { width:72px; height:72px; }
+      .signature { font-size:0.88rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" role="main" aria-label="A romantic note for Iris">
+      <div class="message">
+        <div class="eyebrow">For Iris</div>
+        <h1>My dearest <span class="name">Iris</span>,</h1>
+        <p class="lead">
+          When I wake and think of you, the world softens — colors become kinder and every small ordinary thing feels touched by light. You are the quiet warmth that makes my heart restless in the best way. With you, simple moments become stories I want to keep forever.
+        </p>
+
+        <div class="meta" aria-hidden="true">
+          <div class="badge">Your laugh — my favorite song</div>
+          <div class="badge">Your smile — my morning sun</div>
+        </div>
+
+        <p class="small">
+          If I had a thousand words, they'd all come back to your name. If I had a thousand days, I'd spend each of them proving how special you are.
+        </p>
+
+        <div class="cta" role="group" aria-label="Actions">
+          <button class="btn btn-pink" aria-label="Send this message to Iris" onclick="alert('Iris, this message was sent with love 🌸')">Send this to Iris</button>
+          <button class="btn btn-ghost" aria-label="Toggle mood" onclick="document.querySelector('.card').classList.toggle('soft')">Toggle Mood</button>
+        </div>
+
+        <div class="signature">— With all my heart</div>
+      </div>
+
+      <aside class="portrait" aria-hidden="false">
+        <svg class="heart" viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#ff6fa3"/>
+              <stop offset="1" stop-color="#845ef7"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#g)" d="M23.6 0c-2.3 0-4.3 1.1-5.6 2.8C16.7 1.1 14.7 0 12.4 0 7.7 0 4 3.6 4 8.3c0 9.1 14 16.7 14 16.7S32 17.4 32 8.3C32 3.6 28.3 0 23.6 0z"/>
+        </svg>
+        <div class="note">I think of you. I miss you. I choose you.</div>
+        <div class="small">Made with warmth — just for Iris</div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    // small enhancement: keyboard shortcut (S) to trigger send
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 's') {
+        const btn = document.querySelector('.btn-pink');
+        if (btn) btn.click();
+      }
+    });
+  </script>
+</body>
+</html>
