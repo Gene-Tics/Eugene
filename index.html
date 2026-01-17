@@ -1,287 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Iris — Five Months With You</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Iris — Always</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1b1b2f, #162447);
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
 
-<style>
-:root{
-  --bg:#0b1220;
-  --accent:#ff7bbd;
-  --accent-2:#9b7bff;
-  --muted:#cfd8f6;
-  --card-bg: rgba(255,255,255,0.035);
-}
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
 
-*{box-sizing:border-box}
+    .center {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+    }
 
-html,body{
-  margin:0;
-  font-family:'Poppins',system-ui;
-  -webkit-font-smoothing:antialiased;
-}
+    h1 { font-size: clamp(2.2rem, 6vw, 3rem); margin-bottom: 20px; }
+    p { font-size: 1.05rem; line-height: 1.7; max-width: 620px; opacity: 0.95; }
 
-body{
-  min-height:100svh;
-  background:
-    radial-gradient(900px 500px at 20% 15%, rgba(155,123,255,0.18), transparent 12%),
-    radial-gradient(900px 500px at 80% 85%, rgba(255,123,189,0.18), transparent 12%),
-    linear-gradient(180deg,#0b1220,#070c16);
-  color:var(--muted);
-  padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-}
+    button {
+      margin-top: 30px;
+      padding: 14px 30px;
+      border-radius: 30px;
+      border: none;
+      background: #e43f5a;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
 
-main{
-  width:100%;
-  max-width:980px;
-}
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      backdrop-filter: blur(8px);
+    }
 
-.card{
-  margin:26px auto;
-  background:linear-gradient(180deg,var(--card-bg),rgba(255,255,255,0.01));
-  border-radius:22px;
-  padding:30px;
-  display:grid;
-  grid-template-columns:1fr 360px;
-  gap:26px;
-  box-shadow:
-    0 20px 70px rgba(2,6,23,0.75),
-    inset 0 0 40px rgba(255,123,189,0.05);
-  transition:all .6s ease;
-  animation:breathe 6s ease-in-out infinite;
-}
+    nav button {
+      background: none;
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 6px 10px;
+    }
 
-@keyframes breathe{
-  0%,100%{box-shadow:0 20px 70px rgba(2,6,23,0.75)}
-  50%{box-shadow:0 30px 90px rgba(255,123,189,0.18)}
-}
+    section {
+      display: none;
+      padding: 70px 20px 120px;
+      max-width: 900px;
+      margin: auto;
+    }
 
-.card.soft{
-  background:
-    linear-gradient(180deg,
-      rgba(255,123,189,0.12),
-      rgba(155,123,255,0.08));
-}
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
 
-/* TEXT */
-.eyebrow{
-  font-weight:500;
-  letter-spacing:.6px;
-  margin-bottom:8px;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .letter { cursor: pointer; }
+    .letter-content { display: none; margin-top: 14px; font-family: 'Playfair Display', serif; }
 
-h1{
-  font-size:2.05rem;
-  color:#fff;
-  margin:0 0 14px;
-  font-weight:800;
-}
+    .gift { text-align: center; cursor: pointer; }
+    .gift span { font-size: 2.2rem; display: block; margin-bottom: 10px; }
+    .gift-content { display: none; margin-top: 10px; font-style: italic; }
 
-.name{
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .timeline-item { margin-bottom: 20px; border-left: 2px solid #e43f5a; padding-left: 14px; }
 
-.lead{
-  line-height:1.85;
-  color:#eef2ff;
-  margin-bottom:20px;
-  font-weight:400;
-}
+    .music-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
 
-.meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:16px;
-}
-
-.badge{
-  padding:8px 16px;
-  border-radius:999px;
-  background:rgba(255,255,255,0.07);
-  font-size:.9rem;
-  backdrop-filter:blur(4px);
-}
-
-.small{
-  font-size:.98rem;
-  color:#d3dbf8;
-  margin-bottom:20px;
-}
-
-/* BUTTONS */
-.cta{
-  display:flex;
-  gap:12px;
-  margin-top:10px;
-}
-
-button{
-  width:100%;
-  padding:15px;
-  border-radius:16px;
-  border:none;
-  font-weight:700;
-  font-size:1rem;
-  cursor:pointer;
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-
-button:active{
-  transform:scale(.97);
-}
-
-.btn-pink{
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#071027;
-  box-shadow:0 10px 40px rgba(255,123,189,0.25);
-}
-
-.btn-ghost{
-  background:transparent;
-  color:var(--muted);
-  border:1px solid rgba(255,255,255,0.25);
-}
-
-.signature{
-  margin-top:22px;
-  font-size:.9rem;
-  color:#b7c3ee;
-  font-style:italic;
-}
-
-/* PORTRAIT */
-.portrait{
-  background:rgba(255,255,255,0.045);
-  border-radius:18px;
-  padding:26px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:16px;
-  text-align:center;
-}
-
-.heart{
-  width:92px;
-  height:92px;
-  filter:drop-shadow(0 0 32px rgba(255,123,189,0.55));
-  animation:beat 2.4s infinite ease-in-out;
-}
-
-@keyframes beat{
-  0%,100%{transform:scale(1)}
-  45%{transform:scale(1.14)}
-}
-
-.note{
-  color:#ffffff;
-  font-weight:600;
-}
-
-.made{
-  font-size:.85rem;
-  color:#c7cff1;
-}
-
-/* MOBILE */
-@media (max-width:880px){
-  .card{
-    grid-template-columns:1fr;
-  }
-  .portrait{
-    order:-1;
-  }
-}
-
-@media (max-width:480px){
-  .card{
-    padding:22px;
-    margin:18px 0;
-  }
-  h1{font-size:1.7rem}
-}
-</style>
+    footer { text-align: center; opacity: 0.6; font-size: 0.85rem; padding-bottom: 140px; }
+  </style>
 </head>
-
 <body>
-<main>
-<section class="card" aria-label="Five months of love with Iris">
 
-  <div class="message">
-    <div class="eyebrow">Five months of choosing you</div>
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c7e7f7e4e.mp3" type="audio/mpeg">
+</audio>
 
-    <h1>My love, <span class="name">Iris</span></h1>
+<div class="music-toggle" onclick="toggleMusic()">🎵</div>
 
-    <p class="lead">
-      It’s been five months with you — five months of learning your heart,
-      five months of laughter, quiet talks, patience, and growing together.
-      Somewhere along the way, you stopped being just someone I loved
-      and became the place my heart feels safest.
-    </p>
+<!-- LANDING -->
+<div class="center" id="landing">
+  <h1>Hi, Iris.</h1>
+  <p>
+    This isn’t just a website.
+    <br><br>
+    It’s my love, written slowly,
+    gently, and honestly —
+    just for you.
+  </p>
+  <button onclick="enterSite()">Enter</button>
+</div>
 
-    <div class="meta">
-      <div class="badge">Five months of us</div>
-      <div class="badge">And I’m still choosing you</div>
-    </div>
+<!-- LETTERS -->
+<section id="letters">
+  <h1>Letters</h1>
 
-    <p class="small">
-      I love you not just in the happy moments,
-      but in the pauses, the silences, the days that aren’t perfect.
-      Loving you has taught me calm, depth, and the kind of love
-      that doesn’t rush — it stays.
-    </p>
-
-    <div class="cta">
-      <button class="btn-pink"
-        onclick="alert('Five months with you, and my heart still chooses you every day 💖')">
-        Send this to Iris
-      </button>
-      <button class="btn-ghost"
-        onclick="document.querySelector('.card').classList.toggle('soft')">
-        Hold Me Closer
-      </button>
-    </div>
-
-    <div class="signature">
-      — Five months down, a lifetime to go
-    </div>
+  <div class="card letter" onclick="toggle(this)">
+    ✉️ <strong>The Day I Chose You</strong>
+    <div class="letter-content">I didn’t choose you because everything was perfect. I chose you because even in the quiet and uncertainty, my heart felt safe with you.</div>
   </div>
 
-  <aside class="portrait">
-    <svg class="heart" viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stop-color="#ff7bbd"/>
-          <stop offset="1" stop-color="#9b7bff"/>
-        </linearGradient>
-      </defs>
-      <path fill="url(#g)"
-        d="M23.6 0c-2.3 0-4.3 1.1-5.6 2.8
-           C16.7 1.1 14.7 0 12.4 0
-           7.7 0 4 3.6 4 8.3
-           c0 9.1 14 16.7 14 16.7
-           S32 17.4 32 8.3
-           C32 3.6 28.3 0 23.6 0z"/>
-    </svg>
+  <div class="card letter" onclick="toggle(this)">
+    ✉️ <strong>When Things Get Hard</strong>
+    <div class="letter-content">Even when you need space, my love doesn’t disappear. It waits — calmly, patiently, without pressure.</div>
+  </div>
 
-    <div class="note">I choose you — yesterday, today, and tomorrow.</div>
-    <div class="made">Five months written softly, with love</div>
-  </aside>
-
+  <div class="card letter" onclick="toggle(this)">
+    ✉️ <strong>My Promise</strong>
+    <div class="letter-content">I promise effort, honesty, and a love that stays even when it’s not easy.</div>
+  </div>
 </section>
-</main>
+
+<!-- GIFTS -->
+<section id="gifts">
+  <h1>Gifts</h1>
+
+  <div class="card gift" onclick="toggle(this)">
+    <span>🎁</span>
+    <strong>A Song</strong>
+    <div class="gift-content">This song plays softly because that’s how I love you — not loud, but constant.</div>
+  </div>
+
+  <div class="card gift" onclick="toggle(this)">
+    <span>🌸</span>
+    <strong>A Reminder</strong>
+    <div class="gift-content">You don’t need to be anything more than who you are. That’s already enough for me.</div>
+  </div>
+
+  <div class="card gift" onclick="toggle(this)">
+    <span>💍</span>
+    <strong>A Promise</strong>
+    <div class="gift-content">No rush. No pressure. Just choosing you every day I’m allowed to.</div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h1>Our Timeline</h1>
+
+  <div class="card timeline-item">The moment I realized I cared more than I expected.</div>
+  <div class="card timeline-item">The days I learned to love you gently.</div>
+  <div class="card timeline-item">Even now — still choosing you.</div>
+</section>
+
+<!-- FINAL -->
+<section id="final">
+  <h1>For You</h1>
+  <div class="card">
+    Iris, you never owe me anything.
+    <br><br>
+    This is simply my heart saying:
+    I’m here. I care. I choose you.
+  </div>
+</section>
+
+<footer>Made with love — Eugene</footer>
+
+<nav>
+  <button onclick="show('letters')">Letters</button>
+  <button onclick="show('gifts')">Gifts</button>
+  <button onclick="show('timeline')">Timeline</button>
+  <button onclick="show('final')">For You</button>
+</nav>
+
+<script>
+  function enterSite() {
+    document.getElementById('landing').style.display = 'none';
+    show('letters');
+  }
+
+  function show(id) {
+    document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    window.scrollTo(0,0);
+  }
+
+  function toggle(el) {
+    const content = el.querySelector('div');
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  }
+
+  const music = document.getElementById('bgMusic');
+  let playing = false;
+  function toggleMusic() {
+    if (playing) { music.pause(); } else { music.play(); }
+    playing = !playing;
+  }
+</script>
+
 </body>
 </html>
